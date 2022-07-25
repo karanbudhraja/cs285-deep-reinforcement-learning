@@ -108,8 +108,13 @@ class MLPPolicySL(MLPPolicy):
             self, observations, actions,
             adv_n=None, acs_labels_na=None, qvals=None
     ):
-        # TODO: update the policy and return the loss
-        loss = TODO
+        # update the policy and return the loss
+        self.optimizer.zero_grad()
+        predicted_actions = self.forward(observations)
+        loss = self.loss.forward(actions, predicted_actions)
+        loss.backward()
+        self.optimizer.step()
+
         return {
             # You can add extra logging information here, but keep this line
             'Training Loss': ptu.to_numpy(loss),
