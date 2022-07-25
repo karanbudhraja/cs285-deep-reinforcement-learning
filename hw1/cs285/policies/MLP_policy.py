@@ -80,8 +80,8 @@ class MLPPolicy(BasePolicy, nn.Module, metaclass=abc.ABCMeta):
         else:
             observation = obs[None]
 
-        # TODO return the action that the policy prescribes
-        raise NotImplementedError
+        # return the action that the policy prescribes
+        return ptu.to_numpy(self.forward(ptu.from_numpy(observation)))
 
     # update/train this policy
     def update(self, observations, actions, **kwargs):

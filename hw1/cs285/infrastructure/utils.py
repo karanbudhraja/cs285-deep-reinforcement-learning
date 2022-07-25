@@ -7,13 +7,12 @@ import time
 def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('rgb_array')):
 
     # initialize env for the beginning of a new rollout
-    ob = TODO # HINT: should be the output of resetting the env
+    ob = env.reset() #should be the output of resetting the env
 
     # init vars
     obs, acs, rewards, next_obs, terminals, image_obs = [], [], [], [], [], []
     steps = 0
     while True:
-
         # render image of the simulated env
         if render:
             if 'rgb_array' in render_mode:
@@ -27,7 +26,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
 
         # use the most recent ob to decide what to do
         obs.append(ob)
-        ac = TODO # HINT: query the policy's get_action function
+        ac = policy.get_action(ob) # query the policy's get_action function
         ac = ac[0]
         acs.append(ac)
 
@@ -39,9 +38,9 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
         next_obs.append(ob)
         rewards.append(rew)
 
-        # TODO end the rollout if the rollout ended
-        # HINT: rollout can end due to done, or due to max_path_length
-        rollout_done = TODO # HINT: this is either 0 or 1
+        # end the rollout if the rollout ended
+        # rollout can end due to done, or due to max_path_length
+        rollout_done = done or (steps >= max_path_length) # this is either 0 or 1
         terminals.append(rollout_done)
 
         if rollout_done:
