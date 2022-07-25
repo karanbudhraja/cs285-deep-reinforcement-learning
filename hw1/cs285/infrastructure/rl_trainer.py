@@ -168,7 +168,7 @@ class RL_Trainer(object):
         # (1) load the data. In this case you can directly return as follows
         # ``` return loaded_paths, 0, None ```
         # (2) collect `self.params['batch_size']` transitions
-        if(itr > 0):
+        if(itr > 1):
             # collect `batch_size` samples to be used for training
             print("\nCollecting data to be used for training...")
 
