@@ -114,8 +114,8 @@ class MLPPolicySL(MLPPolicy):
     ):
         # update the policy and return the loss
         self.optimizer.zero_grad()
-        predicted_actions = self.forward(observations)
-        loss = self.loss.forward(actions, predicted_actions)
+        predicted_actions = self.forward(ptu.from_numpy(observations))
+        loss = self.loss.forward(ptu.from_numpy(actions), predicted_actions)
         loss.backward()
         self.optimizer.step()
 
